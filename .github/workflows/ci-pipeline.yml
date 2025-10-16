@@ -1,0 +1,32 @@
+name: Node.js CI
+
+# 1. Event: Trigger this workflow on a push to the main branch
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  # 2. Job: Define a single job called "build-and-test"
+  build-and-test:
+    # Use the latest version of Ubuntu as the runner
+    runs-on: ubuntu-latest
+
+    # 3. Steps: A sequence of tasks to run
+    steps:
+      # 4. Action: Checks out your repository's code onto the runner
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Action: Sets up the required Node.js version
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      # Step: Run shell commands to install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Step: Run the tests
+      - name: Run Tests
+        run: npm test
